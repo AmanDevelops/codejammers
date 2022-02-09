@@ -1,0 +1,6 @@
+{% extends 'main/base.html' %}
+{% block contents %}
+<title>Code</title>
+<h2>Submitted By {% for dat in data%}{{ dat.submitted_by}}{%endfor%}</h2>
+<p>{% for dat in data%}{{ dat.code}}{%endfor%}</p>
+{% endblock %}

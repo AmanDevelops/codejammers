@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% block contents%}
+<title>Result</title>
+<div class="table-responsive">
+<table class="table table-striped"> 
+
+        <tr>
+            <th>Position</th>
+            <th>Submitted By</th>
+            <th>ViewCode</th>
+        </tr>
+       
+        {% for dat in resmod%}
+        <tr>
+            <td>{{dat.position}}</td>
+            <td>{{dat.username}}</td>
+            <td><a href='/code?id={{dat.sub_id}}'><button type="button" class="btn btn-dark" >View</button></a></td>
+        </tr>
+       {% endfor %}
+    </table>
+    </div>
+{% endblock%}

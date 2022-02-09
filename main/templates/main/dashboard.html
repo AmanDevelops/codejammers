@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block contents%}
+
+<title>Dashboard</title>
+<h2>Hello {{user.first_name}}, here are some coding competitions for you.</h2>
+<div class="table-responsive">
+<table class="table table-striped"> 
+
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Language</th>
+            <th>Submissions</th>
+            <th>Last Date</th>
+            <th>Actions</th>
+        </tr>
+        
+        {% for comp in comps%}
+        <tr>
+            <td>{{comp.id}}</td>
+            <td>{{comp.title}}</td>
+            <td>{{comp.lang}}</td>
+            <td>{{comp.submissions}}</td>
+            <td>{{comp.date}}</td>
+            {% if comp.result %}
+            <td><a href='/result?id={{comp.id}}'><button type="button" class="btn btn-dark" >Results</button></a></td>
+            {% else%}
+            <td><a href='/view?id={{comp.id}}'><button type="button" class="btn btn-dark" >View</button></a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}

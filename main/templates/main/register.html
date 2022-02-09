@@ -1,0 +1,55 @@
+{% extends 'main/base.html'%}
+
+{% block contents%}
+<title>Register</title>
+
+{% for message in messages %}
+
+{% if creat  == True %}
+<div class="alert alert-success" role="alert">
+{{ message }}
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+
+ {{message}}
+</div>
+
+{%endif%}
+
+
+{% endfor %}
+
+<form action='register' method='POST'>
+{% csrf_token %}
+<div class="row g-3">
+  <div class="col">
+    <label for="formGroupExampleInput" class="form-label">First Name</label>
+    <input type="text" class="form-control" placeholder="First name" aria-label="First name" name='first_name' required>
+  </div>
+  <div class="col">
+    <label for="formGroupExampleInput" class="form-label">Last Name</label>
+    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name='last_name' required>
+  </div>
+</div>
+<br>
+<div class="mb-3">
+  <label for="formGroupExampleInput" class="form-label">Username</label>
+  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter your Username" name='username' required>
+</div>
+
+<div class="mb-3">
+  <label for="formGroupExampleInput" class="form-label">Email</label>
+  <input type="email" class="form-control" id="formGroupExampleInput" placeholder="Enter your Email" name='email' required>
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label">Password</label>
+  <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" name='password1' required>
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput" class="form-label">Confirm Password</label>
+  <input type="password" class="form-control" id="formGroupExampleInput" placeholder="Confirm Your Password" name='password2' required>
+</div>
+ <button type="submit" class="btn btn-primary">Register</button>
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'main/base.html'%}
+
+
+{% block contents%}
+<title>Submissions</title>
+
+
+
+<h1>{{comps.title}} {% if submitted == True %}  {% else %} <a href='/submit?id={{comps.id}}'><button type="submit" class="btn btn-primary mb-2" >Submit Your Code</button></a>{% endif %}</h1> 
+
+      
+    
+<p>{{comps.desc}}</p>
+<div class="table-responsive">
+<table class="table table-striped"> 
+
+        <tr>
+            <th>ID</th>
+            <th>Submitted By</th>
+            
+            <th>Submitted On</th>
+            <th>Actions</th>
+        </tr>
+       
+        {% for subs in sub%}
+        <tr>
+            <td>{{subs.id}}</td>
+            
+            
+         
+
+            
+            
+            <td>{{subs.submitted_by}}</td>
+            
+            
+            <td>{{subs.sub_date}}</td>
+            <td><a href='{{subs.code}}' target='_blank'><button type="button" class="btn btn-dark" >View</button></a></td>
+        </tr>
+       {% endfor %}
+    </table>
+    </div>
+
+
+{% endblock %}
