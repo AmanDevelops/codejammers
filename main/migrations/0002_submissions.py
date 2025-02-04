@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0001_initial'),
+        ("main", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='submissions',
+            name="submissions",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('submitted_by', models.CharField(max_length=50)),
-                ('length', models.IntegerField()),
-                ('sub_date', models.DateField(auto_now=True)),
-                ('code', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("submitted_by", models.CharField(max_length=50)),
+                ("length", models.IntegerField()),
+                ("sub_date", models.DateField(auto_now=True)),
+                ("code", models.TextField()),
             ],
         ),
     ]

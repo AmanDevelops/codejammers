@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0003_submissions_pgid'),
+        ("main", "0003_submissions_pgid"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='submissions',
-            name='sub_time',
+            model_name="submissions",
+            name="sub_time",
             field=models.TimeField(auto_now=True),
         ),
     ]

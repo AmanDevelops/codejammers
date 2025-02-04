@@ -6,17 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0004_submissions_sub_time'),
+        ("main", "0004_submissions_sub_time"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='resultmodel',
+            name="resultmodel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('position', models.IntegerField()),
-                ('comp_id', models.IntegerField()),
-                ('sub_id', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("position", models.IntegerField()),
+                ("comp_id", models.IntegerField()),
+                ("sub_id", models.IntegerField()),
             ],
         ),
     ]
