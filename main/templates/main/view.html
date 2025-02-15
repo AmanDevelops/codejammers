@@ -42,10 +42,10 @@
     <main class="container">
         <div class="challenge-header">
             <div class="challenge-title">
-                <h1>Print The Table</h1>
+                <h1>{{comps.title}}</h1>
                 <span class="language-badge">Python</span>
             </div>
-            {% if submitted == True %}  {% else %}
+            {% if submitted %}  {% else %}
             <a href="/submit?id={{comps.id}}" style="text-decoration: none;">
             <button class="submit-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
