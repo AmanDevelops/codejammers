@@ -127,12 +127,22 @@ def login(request):
 
 
 def logout(request):
-    user = request.user
-    if user.is_authenticated:
-        auth.logout(request)
-        return redirect("/")
-    else:
-        return redirect("/")
+    """
+    Handle user logout functionality.
+
+    This function logs out the currently authenticated user and redirects them to the index page.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A redirect to the index page after logging out the user.
+    """
+    # Log out the user
+    auth.logout(request)
+
+    # Redirect to the index page
+    return redirect("index-load")
 
 
 def dashboard(request):
