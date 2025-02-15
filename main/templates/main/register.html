@@ -1,55 +1,138 @@
-{% extends 'main/base.html'%}
+{% load static %}
 
-{% block contents%}
-<title>Register</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Jammers - Register</title>
+  <link rel="stylesheet" href="{% static 'login.css'%}">
+</head>
+<body>
+  <div class="container">
+    <div class="login-card">
+        {% for message in messages %}
+        <div class="notification">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            {{message}}
+          </div>
+          {% endfor %}
+      <div class="card-content">
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          <span>Code Jammers</span>
+        </div>
+        
+        <h2>🎉 Join the Jam!</h2>
+        <p class="subtitle">Create an account to start your coding adventure.</p>
+        
+        <form class="login-form" action="{% url 'register'%}" method="POST">
+            {% csrf_token %}
+            <div class="username-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-group" >
+            <label for="fname">🧑 First Name <span style="color: red;">*</span></label>
+            <input
+              id="fname"
+              type="text"
+              required
+              placeholder="Enter your First Name"
+              name="first_name" required
+            />
 
-{% for message in messages %}
+          </div>
 
-{% if creat  == True %}
-<div class="alert alert-success" role="alert">
-{{ message }}
-</div>
-{% else %}
-<div class="alert alert-danger" role="alert">
+          <div class="form-group">
+        
+            <label for="lname">🧑 Last Name <span style="color: red;">*</span></label>
+            <input
+              id="lname"
+              type="text"
+              required
+              placeholder="Enter your Last Name"
+              name="last_name" required
+            />
+          </div>
+        </div>
 
- {{message}}
-</div>
+          <div class="form-group">
+            <label for="email">🔑 Username <span style="color: red;">*</span></label>
+            <input
+              id="email"
+              type="text"
+              required
+              placeholder="Enter your username"
+              name="username" required
+            />
+          </div>
 
-{%endif%}
+          <div class="form-group">
+            <label for="email">📧 E-Mail <span style="color: red;">*</span></label>
+            <input
+              id="email"
+              type="text"
+              required
+              placeholder="Enter your E-Mail"
+              name="email" required
+            />
+          </div>
 
+          
+          <div class="form-group">
+            <label for="password">🔒 Password <span style="color: red;">*</span></label>
+            <input
+              id="password"
+              type="password"
+              required
+              placeholder="Create a password as unique as You!"
+              name="password1" required
+            />
+          </div>
 
-{% endfor %}
-
-<form action='register' method='POST'>
-{% csrf_token %}
-<div class="row g-3">
-  <div class="col">
-    <label for="formGroupExampleInput" class="form-label">First Name</label>
-    <input type="text" class="form-control" placeholder="First name" aria-label="First name" name='first_name' required>
+          <div class="form-group">
+            <label for="password">🔐 Confirm Password <span style="color: red;">*</span></label>
+            <input
+              id="password"
+              type="password"
+              required
+              placeholder="Re-enter your password"
+              name="password2" required
+            />
+          </div>
+          
+          <div class="form-options">
+            <div class="remember-me">
+              <input
+                id="remember-me"
+                type="checkbox"
+              />
+              <label for="remember-me">Remember me</label>
+            </div>
+            
+            <a href="{% url 'contact'%}" class="forgot-password">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="btn-submit">
+            ❤️ Sign up & Start Jamming!
+          </button>
+        </form>
+        
+        <p class="signup-prompt">
+          Got an account? 🚀 Jump back in! <a href="{% url 'login'%}">Login</a>
+        </p>
+      </div>
+      
+      <div class="card-footer">
+        <div class="gradient-overlay"></div>
+        <div class="gradient-line"></div>
+      </div>
+    </div>
   </div>
-  <div class="col">
-    <label for="formGroupExampleInput" class="form-label">Last Name</label>
-    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name='last_name' required>
-  </div>
-</div>
-<br>
-<div class="mb-3">
-  <label for="formGroupExampleInput" class="form-label">Username</label>
-  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter your Username" name='username' required>
-</div>
-
-<div class="mb-3">
-  <label for="formGroupExampleInput" class="form-label">Email</label>
-  <input type="email" class="form-control" id="formGroupExampleInput" placeholder="Enter your Email" name='email' required>
-</div>
-<div class="mb-3">
-  <label for="formGroupExampleInput2" class="form-label">Password</label>
-  <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" name='password1' required>
-</div>
-<div class="mb-3">
-  <label for="formGroupExampleInput" class="form-label">Confirm Password</label>
-  <input type="password" class="form-control" id="formGroupExampleInput" placeholder="Confirm Your Password" name='password2' required>
-</div>
- <button type="submit" class="btn btn-primary">Register</button>
-</form>
-{% endblock %}
+</body>
+</html>

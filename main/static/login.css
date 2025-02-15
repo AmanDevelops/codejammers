@@ -1,0 +1,239 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #4f46e5;
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 28rem;
+  }
+  
+  /* Notification banner */
+.notification {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  
+  .notification svg {
+    flex-shrink: 0;
+  }
+  
+  /* Login card styles */
+  .login-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  
+  .card-content {
+    padding: 2rem;
+  }
+  
+  /* Logo styles */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    color: #4f46e5;
+  }
+  
+  .logo svg {
+    transition: transform 0.3s ease;
+  }
+  
+  .logo:hover svg {
+    transform: rotate(-5deg);
+  }
+  
+  .logo span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Heading styles */
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+  
+  /* Form styles */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  }
+  
+  .form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #d1d5db;
+    accent-color: #4f46e5;
+  }
+  
+  .remember-me label {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .forgot-password {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4f46e5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .forgot-password:hover {
+    color: #4338ca;
+  }
+  
+  /* Button styles */
+  .btn-submit {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-submit:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+  }
+  
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+  
+  /* Sign up prompt */
+  .signup-prompt {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .signup-prompt a {
+    color: #4f46e5;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .signup-prompt a:hover {
+    color: #4338ca;
+  }
+  
+  /* Card footer with gradient */
+  .card-footer {
+    position: relative;
+    height: 0.5rem;
+  }
+  
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #4f46e5, #818cf8);
+    opacity: 0.1;
+  }
+  
+  .gradient-line {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #4f46e5, #818cf8);
+    height: 0.5rem;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 640px) {
+    .card-content {
+      padding: 1.5rem;
+    }
+    
+    .form-options {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .forgot-password {
+      align-self: flex-end;
+    }
+  }

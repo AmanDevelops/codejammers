@@ -1,34 +1,97 @@
-{% extends 'main/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Jammers - Submit Solution</title>
+  <link rel="stylesheet" href="{% static 'submit.css'%}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 16 4-4-4-4"></path>
+          <path d="m6 8-4 4 4 4"></path>
+          <path d="m14.5 4-5 16"></path>
+        </svg>
+        <span>Code Jammers</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">About Us</a>
+        <a href="#">Features</a>
+        <a href="#">Contact Us</a>
+      </div>
+      
+      <div class="user-menu">
+        <span class="greeting">Hello, Aman</span>
+        <a href="{% url 'logout'%}" class="logout">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </a>
+      </div>
+    </div>
+  </nav>
 
-{% block contents %}
-<title>Submit Your Code</title>
-{% for message in messages %}
+  <main class="main-content">
+    <div class="container">
+      <div class="problem-card">
+        <!-- <div class="problem-header">
+          <h1>{{title}}</h1>
+          <span class="language-badge">{{language}}</span>
+        </div>
 
-<div class="alert alert-danger" role="alert">
+        <div class="problem-description">
+          <h2>Problem Description</h2>
+          <p>
+            {{description}}
+          </p>
+        </div> -->
 
- {{message}}
-</div>
-{% endfor %}
-
-
-
-<form action='submit?id={{ idgt }}' method='POST'>
-{% csrf_token %}  
-<div class="form-group">
-   <input class="form-control" type="text" placeholder="{{ idgt }}" value="{{ idgt }}" readonly>
-  </div>
-
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Paste The Google Collab Link</label><br>
-    <input type='text' class="form-control" id="exampleFormControlTextarea1" name='code'></textarea>
-
-  </div>
- 
-  
-  <input type="submit" class="btn btn-secondary btn-dark btn-block">
-  
-  
-</form>
+        <form class="submission-form" method='POST' action='{%url "submit"%}?id={{ idgt }}'>
+          {% csrf_token %} 
+          <div class="form-group">
+            {% for message in messages %}
 
 
-{% endblock %}
+            <div class="warning-message">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>{{message}}</span>
+            </div>
+            {% endfor %}
+
+            <label for="submission-link">Paste Your Github Gists Link</label>
+            <input 
+              type="url" 
+              id="submission-link" 
+              placeholder="https://gist.github.com/your_username/"
+              name="code"
+              required
+            >
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Submit Solution
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

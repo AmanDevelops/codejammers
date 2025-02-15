@@ -1,22 +1,99 @@
-{% extends 'main/base.html' %}
-{% block contents%}
-<title>Result</title>
-<div class="table-responsive">
-<table class="table table-striped"> 
-
-        <tr>
-            <th>Position</th>
-            <th>Submitted By</th>
-            <th>ViewCode</th>
-        </tr>
-       
-        {% for dat in resmod%}
-        <tr>
-            <td>{{dat.position}}</td>
-            <td>{{dat.username}}</td>
-            <td><a href='/code?id={{dat.sub_id}}'><button type="button" class="btn btn-dark" >View</button></a></td>
-        </tr>
-       {% endfor %}
-    </table>
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Jammers - Competition Results</title>
+  <link rel="stylesheet" href="{% static 'result.css'%}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>Code Jammers</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">About Us</a>
+        <a href="#">Features</a>
+        <a href="#">Contact Us</a>
+      </div>
+      
+      <div class="user-menu">
+        <span class="greeting">Hello, Aman</span>
+        <a href="{% url 'logout'%}" class="logout">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </a>
+      </div>
     </div>
-{% endblock%}
+  </nav>
+
+  <main class="main-content">
+    <div class="container">
+      <header class="page-header">
+        <h1>Competition Results</h1>
+      </header>
+
+      <div class="results-container">
+        <!-- <div class="competition-info">
+          <h2>Competition Details</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Title:</span>
+              <span class="value">{{title}}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Language:</span>
+              <span class="value"><span class="language-badge">{{language}}</span></span>
+            </div>
+            <div class="info-item">
+              <span class="label">Total Submissions:</span>
+              <span class="value">{{total_subs}}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Date:</span>
+              <span class="value">{{last_date}}4</span>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="results-table">
+          <div class="table-header">
+            <div class="header-cell">Position</div>
+            <div class="header-cell">Submitted By</div>
+            <div class="header-cell">ViewCode</div>
+          </div>
+          {% for dat in resmod%}
+          <div class="table-row">
+            <div class="cell">{{dat.position}}</div>
+            <div class="cell">{{dat.username}}</div>
+            <div class="cell">
+                <a href="{% url 'code' %}?id={{dat.sub_id}}" style="text-decoration: none;">
+              <button class="btn-view">
+                View
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,45 +1,103 @@
-{% extends 'main/base.html'%}
-
-
-{% block contents%}
-<title>Submissions</title>
-
-
-
-<h1>{{comps.title}} {% if submitted == True %}  {% else %} <a href='/submit?id={{comps.id}}'><button type="submit" class="btn btn-primary mb-2" >Submit Your Code</button></a>{% endif %}</h1> 
-
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Jammers - Dashboard</title>
+  <link rel="stylesheet" href="{% static 'view.css'%}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>Code Jammers</span>
+      </div>
       
-    
-<p>{{comps.desc}}</p>
-<div class="table-responsive">
-<table class="table table-striped"> 
-
-        <tr>
-            <th>ID</th>
-            <th>Submitted By</th>
-            
-            <th>Submitted On</th>
-            <th>Actions</th>
-        </tr>
-       
-        {% for subs in sub%}
-        <tr>
-            <td>{{subs.id}}</td>
-            
-            
-         
-
-            
-            
-            <td>{{subs.submitted_by}}</td>
-            
-            
-            <td>{{subs.sub_date}}</td>
-            <td><a href='{{subs.code}}' target='_blank'><button type="button" class="btn btn-dark" >View</button></a></td>
-        </tr>
-       {% endfor %}
-    </table>
+      <div class="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">About Us</a>
+        <a href="#">Features</a>
+        <a href="#">Contact Us</a>
+      </div>
+      
+      <div class="user-menu">
+        <span class="greeting">Hello, {{user.first_name}}</span>
+        <a href="{% url 'logout'%}" class="logout">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </a>
+      </div>
     </div>
+  </nav>
 
+    <main class="container">
+        <div class="challenge-header">
+            <div class="challenge-title">
+                <h1>{{comps.title}}</h1>
+                <span class="language-badge">Python</span>
+            </div>
+            {% if submitted %}  {% else %}
+            <a href="/submit?id={{comps.id}}" style="text-decoration: none;">
+            <button class="submit-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+                </svg>
+                Submit Your Code
+            </button>
+        </a>
+            {% endif %}
+        </div>
 
-{% endblock %}
+        <div class="challenge-description">
+            <h2>Problem Description</h2>
+            <p>{{comps.desc}}</p>
+        </div>
+
+        <div class="submissions-section">
+            <h2>Your Submissions</h2>
+            <div class="submissions-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Submitted By</th>
+                            <th>Submitted On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subs in sub%}
+                        <tr>
+                            <td>{{subs.id}}</td>
+                            <td>{{subs.submitted_by}}</td>
+                            <td>{{subs.sub_date}}</td>
+                            <td>
+                                <a href="{{subs.code}}" style="text-decoration: none;" target="_blank">
+                                    <button class="view-btn">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.49v-1.69c-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.11-1.44-1.11-1.44-.91-.62.07-.61.07-.61 1.01.07 1.54 1.03 1.54 1.03.89 1.52 2.34 1.08 2.91.83.09-.64.35-1.08.64-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.52.32 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.86-2.34 4.7-4.57 4.95.36.31.69.92.69 1.86v2.76c0 .27.18.59.69.49A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"></path>
+                                        </svg>
+                                        View Gist
+                                    </button>
+                                </a>
+                                
+                            </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

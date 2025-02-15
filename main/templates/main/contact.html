@@ -1,7 +1,63 @@
-{% extends 'main/base.html' %}
-{% block contents%}
-<title>Contact Us</title>
-<h1>Contact us At</h1>
+{% load static%}
 
-<h3>Email - amanpal2072004@gmail.com</h3>
-{% endblock%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Jammers - Contact Us</title>
+  <link rel="stylesheet" href="{% static 'contact.css'%}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 16 4-4-4-4"></path>
+          <path d="m6 8-4 4 4 4"></path>
+          <path d="m14.5 4-5 16"></path>
+        </svg>
+        <span>Code Jammers</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="#">About Us</a>
+        <a href="#">Features</a>
+        <a href="#" class="active">Contact Us</a>
+      </div>
+      
+      <div class="user-menu">
+        <span class="greeting">Hello, Aman</span>
+        <a href="#" class="logout">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="contact-card">
+        <div class="contact-header">
+          <h1>Connect With Us</h1>
+          <p>Find our open-source project on GitHub</p>
+        </div>
+
+        <a href="https://github.com/AmanDevelops/codejammers.git" class="github-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+            <path d="M9 18c-4.51 2-5-2-7-2"></path>
+          </svg>
+          <span>Visit our GitHub Repository</span>
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
