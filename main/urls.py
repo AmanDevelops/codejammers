@@ -13,4 +13,5 @@ urlpatterns = [
     path("code", views.code, name="code"),
     path("result", views.result, name="result"),
     path("contact", views.contact, name="contact"),
+    path("coming-soon", views.coming_soon, name="soon"),
 ]

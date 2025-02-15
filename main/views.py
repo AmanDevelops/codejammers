@@ -82,21 +82,24 @@ def register(request):
 
 def login(request):
     if request.user.is_authenticated:
-        print("already logged in")
-        return redirect("/")
-    else:
-        if request.method == "POST":
-            username = request.POST["username"]
-            password = request.POST["password"]
-            user = auth.authenticate(username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return redirect("/")
-            else:
-                messages.info(request, "Invalid Credentials")
-                return redirect("login")
+        return redirect("dash")
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        if None in [username, password]:
+            messages.info(request, "Something is missing")
+            return redirect("login")
+
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect("/")
         else:
-            return render(request, "main/login.html")
+            messages.info(request, "Invalid Credentials")
+            return redirect("login")
+    else:
+        return render(request, "main/login.html")
 
 
 def logout(request):
@@ -194,3 +197,7 @@ def result(request):
 
 def contact(request):
     return render(request, "main/contact.html")
+
+
+def coming_soon(request):
+    return render(request, "main/coming-soon.html")
