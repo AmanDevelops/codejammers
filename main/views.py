@@ -2,68 +2,82 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .models import competitions, contact, resultmodel, submissions
-
-# Create your views here.
+from .models import competitions, resultmodel, submissions
 
 
 def home(request):
-    if request.method == "POST":
-        name = request.POST["name"]
-        email = request.POST["email"]
-        message = request.POST["message"]
-        ready = contact(name=name, email=email, message=message)
-        ready.save()
-        return redirect("/")
-
-    else:
-        return render(request, "main/index.html")
-
-
-def base(request):
-    return render(request, "main/base.html")
+    return render(request, "main/index.html")
 
 
 def register(request):
+    """
+    Handle user registration.
+
+    This function handles user registration by checking if the user is authenticated,
+    processing the form data, and performing necessary validations before creating a new user.
+
+    Parameters:
+        request (HttpRequest): The request object containing form data and metadata.
+
+    Returns:
+        HttpResponse: Redirects to the dashboard if the user is authenticated or
+                      the form is successfully submitted. Renders the registration page with
+                      an error message if there are validation errors.
+    """
+
     if request.user.is_authenticated:
-        return redirect("/")
-    else:
-        if request.method == "POST":
-            first_name = request.POST["first_name"]
-            last_name = request.POST["last_name"]
-            username = request.POST["username"]
-            email = request.POST["email"]
-            password1 = request.POST["password1"]
-            password2 = request.POST["password2"]
-            if password1 == password2:
-                if User.objects.filter(username=username).exists():
+        return redirect(
+            "dash"
+        )  # Redirect to dashboard if user is already authenticated
 
-                    messages.info(request, "Username Already Exists")
-                    return redirect("register")
-                else:
-                    if User.objects.filter(email=email).exists():
-                        messages.info(request, "Email Already Exists")
-                        return redirect("register")
-                    else:
-                        user = User.objects.create_user(
-                            username=username,
-                            password=password1,
-                            email=email,
-                            first_name=first_name,
-                            last_name=last_name,
-                        )
-                        user.save()
-                        messages.info(request, "User Created")
-                        return redirect("register")
+    if request.method != "POST":
+        return render(
+            request,
+            "main/register.html",
+        )  # Render the registration form if the request method is not POST
 
-            else:
-                messages.info(request, "Password Not Matching")
-                return redirect("register")
-        else:
-            return render(
-                request,
-                "main/register.html",
-            )
+    # Retrieve form data from the request
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
+    username = request.POST.get("username")
+    email = request.POST.get("email")
+    password1 = request.POST.get("password1")
+    password2 = request.POST.get("password2")
+
+    # Check if any of the form fields are None
+    if None in [first_name, last_name, username, email, password1, password2]:
+        messages.info(request, "Something is Missing")  # Display an error message
+        return redirect("register")  # Redirect back to the registration page
+
+    # Check if the username already exists
+    if User.objects.filter(username=username).exists():
+        messages.info(request, "Username already exists")  # Display an error message
+        return redirect("register")  # Redirect back to the registration page
+
+    # Check if the passwords match
+    if password1 != password2:
+        messages.info(request, "Password not matching")  # Display an error message
+        return redirect("register")  # Redirect back to the registration page
+
+    # Check if the email already exists
+    if User.objects.filter(email=email).exists():
+        messages.info(request, "Email Already Exists")  # Display an error message
+        return redirect("register")  # Redirect back to the registration page
+
+    # Create a new user
+    user = User.objects.create_user(
+        username=username,
+        password=password1,
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+    )
+    user.save()  # Save the user to the database
+
+    # Authenticate and log in the user
+    user = auth.authenticate(username=username, password=password1)
+    auth.login(request, user)
+    return redirect("dash")  # Redirect to the dashboard after successful registration
 
 
 def login(request):
