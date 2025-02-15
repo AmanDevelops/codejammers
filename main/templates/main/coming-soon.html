@@ -6,7 +6,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Jammers - Coming Soon</title>
-    <title>Code Jammers - Contact Us</title>
   <link rel="stylesheet" href="{% static 'soon.css'%}">
   </head>
   <body>
@@ -22,23 +21,13 @@
         </div>
         
         <div class="nav-links">
-          <a href="index.html">Dashboard</a>
-          <a href="#">About Us</a>
-          <a href="#" class="active">Features</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="{% url 'index-load'%}" class="active">Home</a>
+          <a href="{% url 'soon'%}">About Us</a>
+          <a href="{% url 'soon'%}">Features</a>
+          <a href="{% url 'contact'%}">Contact Us</a>
         </div>
         
-        <div class="user-menu">
-          <span class="greeting">Hello, Aman</span>
-          <a href="#" class="logout">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            Logout
-          </a>
-        </div>
+        
       </div>
     </nav>
   

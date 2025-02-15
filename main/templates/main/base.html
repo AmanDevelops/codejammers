@@ -1,109 +1,47 @@
-<!doctype html>
-<html lang="en" class="h-100">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Aman Pal">
-    <meta name="generator" content="Hugo 0.88.1">
-    
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sticky-footer-navbar/">
-
-    
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="static/main/maincss.css" rel="stylesheet">
-  </head>
-  <body class="d-flex flex-column h-100">
-    
-<header>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Code Jammers</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="features">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="contact">Contact Us</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Hello, {{ user.first_name }}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="logout">Logout</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="login">Login</a>
-          </li>
-          {% endif%}
-
-        </ul>
-        
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Jammers - Dashboard</title>
+  <link rel="stylesheet" href="{% static 'dashboard.css'%}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span>Code Jammers</span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">About Us</a>
+        <a href="#">Features</a>
+        <a href="#">Contact Us</a>
+      </div>
+      
+      <div class="user-menu">
+        <span class="greeting">Hello, {{user.first_name}}</span>
+        <a href="{% url 'logout'%}" class="logout">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </a>
       </div>
     </div>
   </nav>
-</header>
 
-<!-- Begin page content -->
-<main class="flex-shrink-0">
-  <div class="container">
-    <h1 class="mt-5">{{ title }}</h1>
-    
-    {% block contents %}
+
+  {% block contents %}
     {% endblock %}
 
-
-
-
-  </div>
-</main>
-
-<footer class="footer mt-auto py-3 bg-light">
-  <div class="container">
-    <span class="text-muted">© 2021 CodeJammers, Inc. All rights reserved.</span>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-      
   </body>
-</html>
+  </html>
