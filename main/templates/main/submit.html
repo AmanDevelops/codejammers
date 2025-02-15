@@ -43,19 +43,19 @@
   <main class="main-content">
     <div class="container">
       <div class="problem-card">
-        <!-- <div class="problem-header">
-          <h1>{{title}}</h1>
-          <span class="language-badge">{{language}}</span>
+        <div class="problem-header">
+          <h1>{{competition.title}}</h1>
+          <span class="language-badge">{{competition.lang}}</span>
         </div>
 
         <div class="problem-description">
           <h2>Problem Description</h2>
           <p>
-            {{description}}
+            {{competition.desc}}
           </p>
-        </div> -->
+        </div>
 
-        <form class="submission-form" method='POST' action='{%url "submit"%}?id={{ idgt }}'>
+        <form class="submission-form" method='POST' action='{%url "submit"%}?id={{ submission_id }}'>
           {% csrf_token %} 
           <div class="form-group">
             {% for message in messages %}
@@ -76,7 +76,7 @@
               type="url" 
               id="submission-link" 
               placeholder="https://gist.github.com/your_username/"
-              name="code"
+              name="gists-url"
               required
             >
           </div>

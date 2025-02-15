@@ -1,6 +1,9 @@
+import re
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse
+
 
 from .models import competitions, resultmodel, submissions
 
@@ -224,42 +227,72 @@ def view(request):
 
 
 def submit(request):
-    pgidget = request.GET.get("id")
-    if pgidget is not None:
-        username = request.user.username
-        subs2 = submissions.objects.filter(submitted_by=username, pgid=pgidget).exists()
-        # print(subs2)
-        # a = ""
-        # for subal in subs2:
-        #     a = subal.submitted_by
+    """
+    Handle the submission functionality for competitions.
 
-        if not subs2:
+    This function retrieves the requested competition id from the query parameters. If the id is present, it checks if
+    the user has already submitted for the competition. If not, it handles the POST request to submit the GitHub Gists
+    link. If the link is valid, the submission is saved. If the id is not present or the link is invalid, appropriate
+    messages are displayed and the user is redirected.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered submit page for submission id if the id is present and submission does not exist,
+                      or a redirect to the appropriate page based on the request status and conditions.
+
+    Raises:
+        Http404: If the competition with the specified id does not exist.
+    """
+
+    # Retrieve the requested competition id from query parameters
+    requested_id = request.GET.get("id")
+
+    if requested_id is not None:
+        username = (
+            request.user.username
+        )  # Check if submission already exists for the user and competition id
+
+        submission_exists = submissions.objects.filter(
+            submitted_by=username, pgid=requested_id
+        ).exists()
+
+        competition = get_object_or_404(competitions, id=requested_id)
+
+        if not submission_exists:
+            # Handle POST request for submission
             if request.method == "POST":
-                link = request.POST["code"]
-                pgidget = request.GET.get("id")
-                temp_link = link.lower()
-                if temp_link.find("https://gist.github.com/") == -1:
-                    messages.info(request, "Please Paste The Google Collab Link")
-                    return redirect("/submit?id=" + pgidget)
-                else:
-                    username = request.user.username
-
-                    ready = submissions(pgid=pgidget, submitted_by=username, code=link)
-                    ready.save()
-                    return redirect("/view?id=" + pgidget)
-            else:
-                pgidget1 = request.GET["id"]
-                return render(
-                    request,
-                    "main/submit.html",
-                    {
-                        "idgt": pgidget1,
-                    },
+                gists_link = request.POST.get("gists-url")
+                gists_link = gists_link.lower()
+                gist_url_pattern = (
+                    r"https://gist.github.com/[A-Za-z0-9]+/[A-Za-z0-9]+/[A-Za-z0-9]+"
                 )
-        else:
-            return redirect("/view?id=" + pgidget)
-    else:
-        return redirect("/dashboard")
+
+                # Check if the provided gists link is valid
+                if not bool(re.match(gist_url_pattern, gists_link)):
+                    messages.info(request, "Please provide a Github Gists commit link")
+                    return redirect(f"{reverse("submit")}?id={requested_id}")
+
+                # Save the submission
+                ready = submissions(
+                    pgid=requested_id, submitted_by=username, code=gists_link
+                )
+                ready.save()
+                competition.submissions += 1
+                competition.save()
+                return redirect(f"{reverse("view")}?id={requested_id}")
+
+            # Render the submit page with submission id
+            return render(
+                request,
+                "main/submit.html",
+                {"submission_id": requested_id, "competition": competition},
+            )
+        # Redirect to the view page if submission already exists
+        return redirect(f"{reverse("view")}?id={requested_id}")
+    # Redirect to the dashboard if id is not present
+    return redirect("dash")
 
 
 def code(request):
