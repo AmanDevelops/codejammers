@@ -321,11 +321,9 @@ def code(request):
 
     # Retrieve the submission object
     data = get_object_or_404(submissions, id=request_id)
+    is_result_declared = get_object_or_404(competitions, id=data.pgid).result
     # Check if the user is authorized to view the submission
-    if (
-        data.submitted_by == request.user.username
-        or get_object_or_404(competitions, id=data.pgid).result
-    ):
+    if data.submitted_by == request.user.username or is_result_declared:
         # Render the submissions page with the submission details
         return render(request, "main/submissions.html", {"data": data})
     # Redirect to the index page if the user is not authorized
@@ -333,14 +331,49 @@ def code(request):
 
 
 def result(request):
-    cid = request.GET.get("id")
-    if cid is not None:
-        res = resultmodel.objects.filter(comp_id=cid)
-        subs = submissions.objects.filter(pgid=cid)
+    """
+    Handle the result view functionality for a specific competition.
 
-        return render(request, "main/result.html", {"resmod": res, "submod": subs})
-    else:
-        return redirect("/dashboard")
+    This function retrieves the requested competition id from the query parameters. If the id is present,
+    it checks if the competition results are available. If not, it redirects the user to the competition
+    view page. If results are available, it retrieves the result list and submission list for the competition
+    and renders the result page. If the id is not present, the user is redirected to the dashboard.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered result page with competition results and submission details if the id is present and
+                      results are available, or a redirect to the appropriate page based on the request status and conditions.
+
+    Raises:
+        Http404: If the competition with the specified id does not exist.
+    """
+
+    # Retrieve the requested competition id from query parameters
+    request_id = request.GET.get("id")
+    if request_id is not None:
+        # Retrieve the competition object
+        competition_list = get_object_or_404(competitions, id=request_id)
+        # Check if competition results are available
+        if not competition_list.result:
+            return redirect(f"{reverse('view')}?id={request_id}")
+        # Retrieve the result list and submission list for the competition
+        result_list = resultmodel.objects.filter(comp_id=request_id)
+        submission_list = submissions.objects.filter(pgid=request_id)
+
+        # Render the result page with competition results and submission details
+        return render(
+            request,
+            "main/result.html",
+            {
+                "results_list": result_list,
+                "submod": submission_list,
+                "competition_info": competition_list,
+            },
+        )
+    # Redirect to the dashboard if id is not present
+    return redirect("dash")
 
 
 def contact(request):
