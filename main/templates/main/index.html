@@ -1,300 +1,112 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- Required meta tags --> 
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Welcome To CodeJammers</title>
-		<link rel="stylesheet" href="static/vendors/mdi/css/materialdesignicons.min.css">
-		<link rel="stylesheet" href="static/vendors/owl.carousel/css/owl.carousel.css">
-		<link rel="stylesheet" href="static/vendors/owl.carousel/css/owl.theme.default.min.css">
-		<link rel="stylesheet" href="static/vendors/aos/css/aos.css">
-		<link rel="stylesheet" href="static/vendors/jquery-flipster/css/jquery.flipster.css">
-		<link rel="stylesheet" href="static/css/style.css">
-		<link rel="shortcut icon" href="static/images/favicon.png" />
-	</head>
-	<body data-spy="scroll" data-target=".navbar" data-offset="50">
-		<div id="mobile-menu-overlay"></div>
-		<nav class="navbar navbar-expand-lg fixed-top">
-			<div class="container">
-				<a class="navbar-brand" href="/"><h3 class="font-weight-medium">Code Jammers</h3></a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"><i class="mdi mdi-menu"> </i></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-					<div class="d-lg-none d-flex justify-content-between px-4 py-3 align-items-center">
-						<h3 class="font-weight-medium">Code Jammers</h3>
-						<a href="javascript:;" class="close-menu"><i class="mdi mdi-close"></i></a>
-					</div>
-					<ul class="navbar-nav ml-auto align-items-center">
-						<li class="nav-item active">
-							<a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="about">About</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="features">Features</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#projects">Jams</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#contact">Contact</a>
-						</li>
-						
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Jammers</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-content">
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 16 4-4-4-4"></path>
+            <path d="m6 8-4 4 4 4"></path>
+            <path d="m14.5 4-5 16"></path>
+          </svg>
+          <span>Code Jammers</span>
+        </div>
+        
+        <div class="nav-links">
+          <a href="#" class="active">Home</a>
+          <a href="#">About</a>
+          <a href="#">Features</a>
+          <a href="#">Jams</a>
+          <a href="#">Contact</a>
+        </div>
+        
+        <div class="nav-buttons">
+			{% if user.is_authenticated %}
+			<a class="btn-login" href="{% url 'dash' %}">Dashboard</a>
+          <a class="btn-signup" href="{% url 'logout' %}">Logout</a>
+		  {% else %}
+          <a class="btn-login" href="{% url 'login' %}">Login</a>
+          <a class="btn-signup" href="{% url 'register' %}">Sign Up</a>
+		  {% endif%}
+        </div>
+        
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </nav>
 
-						{% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link btn btn-success" href="dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-success" href="logout">Logout</a>
-          </li>
-          {% else %}
-         <li class="nav-item">
-							<a class="nav-link btn btn-success" href="login">Login</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link btn btn-success" href="signup">Sign Up</a>
-						</li>
-          {% endif%}
+    <!-- Hero Section -->
+    <main>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Welcome to Code Jammers!</h1>
+          <p>A website which will help you sharpen your programming skills by competing with others.</p>
+          <div class="hero-buttons">
+			{% if user.is_authenticated %}
+            <a class="btn-primary" href="{%url 'dash'%}">Dashboard</a>
+			{% else %}
+            <a class="btn-primary" href="{%url 'register'%}">Get Started</a>
+			{% endif %}
+            <a class="btn-secondary" href="https://github.com/AmanDevelops/codejammers">Source Code</a>
+          </div>
+          <div class="features">
+            <div class="feature">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Timed Challenges</span>
+            </div>
+            <div class="feature">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Global Community</span>
+            </div>
+            <div class="feature">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+              <span>Win Prizes</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=2070" alt="Coding illustration">
+        </div>
+      </div>
 
-
-
-						
-						
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div class="page-body-wrapper">
-			<section id="home" class="home">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="main-banner">
-								<div class="d-sm-flex justify-content-between">
-									<div data-aos="zoom-in-up">
-										<div class="banner-title">
-											{% if user.is_authenticated %}
-											<h3 class="font-weight-medium">Welcome {{ user.first_name }}!</h3>
-											{% else %}
-												<h3 class="font-weight-medium">Welcome to Code Jammers!</h3>
-											{% endif %}
-										</div>
-										<p class="mt-3">A website which will help you sharpen your programming skills by competing with others.
-										</p>
-										{% if user.is_authenticated %}
-										<a href="dashboard" class="btn btn-secondary mt-3">Dashboard</a>
-										{% else %}
-
-										<a href="register" class="btn btn-secondary mt-3">Get Started</a>
-										{% endif %}
-									</div>
-									<div class="mt-5 mt-lg-0">
-										<img src="static/images/group.png" alt="marsmello" class="img-fluid" data-aos="zoom-in-up">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			
-			<section class="our-process" id="about">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6" data-aos="fade-up">
-							<h5 class="text-dark">Our work process</h5>
-							<h3 class="font-weight-medium text-dark">Discover New Idea With Us!</h3>
-							<h5 class="text-dark mb-3">Imagination will take us everywhere</h5>
-							<p class="font-weight-medium mb-4">Coding Helps to grow your thinking skills.
-							</p>
-							
-						</div>
-						<div class="col-sm-6 text-right" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-							<img src="static/images/idea.png" alt="idea" class="img-fluid">
-						</div>
-					</div>
-				</div>
-			</section>
-			<section class="our-projects" id="projects">
-				<div class="container">
-					<div class="row mb-5">
-						<div class="col-sm-12">
-							<div class="d-sm-flex justify-content-between align-items-center mb-2">
-								<h3 class="font-weight-medium text-dark ">Let's See Our Latest Competition</h3>
-								<div><a href="dashboard" class="btn btn-outline-primary">View more</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="mb-5" data-aos="fade-up">
-					<a href="dashboard">
-					<div class="owl-carousel-projects owl-carousel owl-theme">
-
-						<div class="item">
-							<img src="static/images/carousel/slider1.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider2.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider3.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider4.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider5.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider1.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider2.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider3.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider4.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider5.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider1.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider2.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider3.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider4.jpg" alt="slider">
-						</div>
-						<div class="item">
-							<img src="static/images/carousel/slider5.jpg" alt="slider">
-						</div>
-					</div>
-				</a>
-				</div>
-				
-			</section>
-			
-			
-			
-			<section class="contactus" id="contact">
-				<div class="container">
-					<div class="row mb-5 pb-5">
-						<div class="col-sm-5" data-aos="fade-up" data-aos-offset="-500">
-							<img src="static/images/contact.jpg" alt="contact" class="img-fluid">
-						</div>
-						<div class="col-sm-7" data-aos="fade-up" data-aos-offset="-500">
-							<h3 class="font-weight-medium text-dark mt-5 mt-lg-0">Feedback and Suggestions</h3>
-							<h5 class="text-dark mb-5">Contact us to give any feedback and suggestions</h5>
-							<form action="/" method="POST">
-								{% csrf_token %}
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" placeholder="Name*" name="name">
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<input type="email" class="form-control" id="mail" placeholder="Email*" name="email">
-										</div>
-									</div>
-									<div class="col-sm-12">
-										<div class="form-group">
-											<textarea name="message" name="message" id="message" class="form-control" placeholder="Message*" rows="5"></textarea>
-										</div>
-									</div>
-									<div class="col-sm-12">
-										<input type="submit" class="btn btn-secondary">
-
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-		<footer class="footer">
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6">
-							<address>
-								<p>Lucknow, India</p>
-								
-								<div class="d-flex align-items-center">
-									
-									<a href="mailto:amanpal2072004@gmail.com" class="footer-link">amanpal2072004@gmail.com</a>
-								</div>
-							</address>
-							<div class="social-icons">
-								<h6 class="footer-title font-weight-bold">
-									Social Share
-								</h6>
-								<div class="d-flex">
-									<a href="https://github.com/AmanDevelops"><i class="mdi mdi-github-circle"></i></a>
-									<a href="https://twitter.com/itzAman2k4"><i class="mdi mdi-twitter"></i></a>
-									
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="row">
-								<div class="col-sm-4">
-									<h6 class="footer-title">Social Share</h6>
-									<ul class="list-footer">
-										<li><a href="#" class="footer-link">Home</a></li>
-										<li><a href="#" class="footer-link">About</a></li>
-										<li><a href="#" class="footer-link">Features</a></li>
-										<li><a href="#" class="footer-link">Contact</a></li>
-									</ul>
-								</div>
-								<div class="col-sm-4">
-									<h6 class="footer-title">Product</h6>
-									<ul class="list-footer">
-										<li><a href="#" class="footer-link">Youtube Channel</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="d-flex align-items-center">
-							<h3 class="font-weight-medium" class='mr-3'>Code Jammers</h3></br><br>
-							
-            
-							
-						</div>
-           
-						<div>
-							<div class="d-flex">
-								<p class="mb-0 text-small pt-1">© 2021 <a href="/" class="text-white" target="_blank">CodeJammers</a>. All rights reserved.</p>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</footer>
-		<script src="static/vendors/base/vendor.bundle.base.js"></script>
-		<script src="static/vendors/owl.carousel/js/owl.carousel.js"></script>
-		<script src="static/vendors/aos/js/aos.js"></script>
-		<script src="static/vendors/jquery-flipster/js/jquery.flipster.min.js"></script>
-		<script src="static/js/template.js"></script>
-	</body>
+      <!-- Decorative Wave -->
+      <div class="wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path fill="#ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+      </div>
+    </main>
+  </div>
+</body>
 </html>

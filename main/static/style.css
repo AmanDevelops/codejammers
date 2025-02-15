@@ -1,0 +1,351 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #4f46e5;
+  color: white;
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation styles */
+nav {
+  padding: 1rem 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo svg {
+  transition: transform 0.3s ease;
+}
+
+.logo:hover svg {
+  transform: rotate(-5deg);
+}
+
+.logo span {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: none;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: calc(100% - 2rem);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: white;
+}
+
+.nav-buttons {
+  display: none;
+}
+
+.btn-login {
+  color: white;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.btn-login:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+.btn-login span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-signup {
+  color: white;
+  background-color: #22c55e;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn-signup:hover {
+  background-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.btn-signup:active {
+  transform: translateY(0);
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.menu-button:hover {
+  transform: scale(1.1);
+}
+
+/* Hero section styles */
+main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  user-select: none;
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  max-width: 32rem;
+  user-select: none;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background-color: white;
+  color: #4f46e5;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.features {
+  display: flex;
+  gap: 2rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.feature:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature svg {
+  transition: transform 0.3s ease;
+}
+
+.feature:hover svg {
+  transform: scale(1.1);
+}
+
+.hero-image {
+  display: none;
+  flex: 1;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.hero-image:hover {
+  transform: translateY(-10px);
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-image:hover img {
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu-button {
+    display: none;
+  }
+
+  h1 {
+    font-size: 3.75rem;
+  }
+
+  .hero-image {
+    display: block;
+  }
+}
