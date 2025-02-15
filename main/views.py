@@ -146,11 +146,32 @@ def logout(request):
 
 
 def dashboard(request):
+    """
+    Handle the dashboard view for authenticated users.
+
+    This function checks if the user is authenticated. If so, it retrieves all competition
+    objects and renders the dashboard page with the list of competitions. If the user is
+    not authenticated, they are redirected to the login page.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered dashboard page with a list of competitions for authenticated users,
+                      or a redirect to the login page if the user is not authenticated.
+    """
+    # Check if user is authenticated
     if request.user.is_authenticated:
-        comps = competitions.objects.all()
-        return render(request, "main/dashboard.html", {"comps": comps})
-    else:
-        return redirect("login")
+        # Retrieve all competition objects
+        competitions_list = competitions.objects.all()
+
+        # Render the dashboard page with the list of competitions
+        return render(
+            request, "main/dashboard.html", {"competitions_list": competitions_list}
+        )
+
+    # Redirect to the login page if user is not authenticated
+    return redirect("login")
 
 
 def view(request):
