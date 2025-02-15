@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from .models import competitions, contact, resultmodel, submissions
 
@@ -106,19 +106,12 @@ def view(request):
     if request.GET.get("id") is not None:
         idg = request.GET["id"]
         subs = submissions.objects.filter(pgid=idg)
-        comp = competitions.objects.get(id=idg)
+        comp = get_object_or_404(competitions, id=idg)
 
-        username = request.user.username
+        submitted = submissions.objects.filter(
+            submitted_by=request.user.username, pgid=idg
+        ).exists()
 
-        subs2 = submissions.objects.filter(submitted_by=username)
-        a = ""
-        for subal in subs2:
-            a = subal.submitted_by
-
-        if a == "":
-            submitted = False
-        else:
-            submitted = True
         return render(
             request,
             "main/view.html",
@@ -132,17 +125,18 @@ def submit(request):
     pgidget = request.GET.get("id")
     if pgidget is not None:
         username = request.user.username
-        subs2 = submissions.objects.filter(submitted_by=username)
-        a = ""
-        for subal in subs2:
-            a = subal.submitted_by
+        subs2 = submissions.objects.filter(submitted_by=username, pgid=pgidget).exists()
+        # print(subs2)
+        # a = ""
+        # for subal in subs2:
+        #     a = subal.submitted_by
 
-        if a == "":
+        if not subs2:
             if request.method == "POST":
                 link = request.POST["code"]
                 pgidget = request.GET.get("id")
                 temp_link = link.lower()
-                if temp_link.find("colab.research.google.com") == -1:
+                if temp_link.find("https://gist.github.com/") == -1:
                     messages.info(request, "Please Paste The Google Collab Link")
                     return redirect("/submit?id=" + pgidget)
                 else:
@@ -178,7 +172,6 @@ def result(request):
     if cid is not None:
         res = resultmodel.objects.filter(comp_id=cid)
         subs = submissions.objects.filter(pgid=cid)
-        print(res, subs)
 
         return render(request, "main/result.html", {"resmod": res, "submod": subs})
     else:
