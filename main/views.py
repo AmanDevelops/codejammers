@@ -65,41 +65,65 @@ def register(request):
         return redirect("register")  # Redirect back to the registration page
 
     # Create a new user
-    user = User.objects.create_user(
+    new_user = User.objects.create_user(
         username=username,
         password=password1,
         email=email,
         first_name=first_name,
         last_name=last_name,
     )
-    user.save()  # Save the user to the database
+    new_user.save()  # Save the user to the database
 
     # Authenticate and log in the user
-    user = auth.authenticate(username=username, password=password1)
-    auth.login(request, user)
+    auth_user = auth.authenticate(username=username, password=password1)
+    auth.login(request, auth_user)
     return redirect("dash")  # Redirect to the dashboard after successful registration
 
 
 def login(request):
+    """
+    Handle user login functionality.
+
+    This function processes the login request. If the user is already authenticated,
+    they are redirected to the dashboard. If a POST request is received, it retrieves
+    the username and password from the request and attempts to authenticate the user.
+    If authentication is successful, the user is logged in and redirected to the dashboard.
+    Otherwise, appropriate error messages are displayed and the user is redirected back
+    to the login page.
+
+    Args:
+        request: The HTTP request object containing user login information.
+
+    Returns:
+        HttpResponse: A redirect to the dashboard if login is successful, or the login page with error messages if not.
+    """
+
+    # Check if user is already authenticated
     if request.user.is_authenticated:
         return redirect("dash")
 
+    # Handle POST request for login
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
+
+        # Check if username or password is missing
         if None in [username, password]:
             messages.info(request, "Something is missing")
             return redirect("login")
 
+        # Authenticate the user
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect("/")
-        else:
-            messages.info(request, "Invalid Credentials")
-            return redirect("login")
-    else:
-        return render(request, "main/login.html")
+            return redirect("dash")
+
+        # Authentication failed
+        messages.info(request, "Invalid Credentials")
+        return redirect("login")
+
+    # Render the login page for GET request
+    return render(request, "main/login.html")
 
 
 def logout(request):
