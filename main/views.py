@@ -296,10 +296,40 @@ def submit(request):
 
 
 def code(request):
-    idd = request.GET["id"]
-    data = submissions.objects.filter(id=idd)
+    """
+    Handle the view functionality for a specific submission.
 
-    return render(request, "main/submissions.html", {"data": data})
+    This function retrieves the requested submission id from the query parameters. If the id is present,
+    it checks if the submission exists and whether the current user is authorized to view it based on the
+    submission ownership or competition result availability. If authorized, it renders the submission page.
+    If the id is not present, the user is redirected to the dashboard.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered submissions page with the submission details if the id is present and the user
+                      is authorized, or a redirect to the appropriate page based on the request status and conditions.
+
+    Raises:
+        Http404: If the submission with the specified id does not exist.
+    """
+    # Retrieve the requested submission id from query parameters
+    request_id = request.GET.get("id")
+    if request_id is None:
+        return redirect("dash")
+
+    # Retrieve the submission object
+    data = get_object_or_404(submissions, id=request_id)
+    # Check if the user is authorized to view the submission
+    if (
+        data.submitted_by == request.user.username
+        or get_object_or_404(competitions, id=data.pgid).result
+    ):
+        # Render the submissions page with the submission details
+        return render(request, "main/submissions.html", {"data": data})
+    # Redirect to the index page if the user is not authorized
+    return redirect("dash")
 
 
 def result(request):
