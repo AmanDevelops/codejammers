@@ -46,27 +46,27 @@
       </header>
 
       <div class="results-container">
-        <!-- <div class="competition-info">
+        <div class="competition-info">
           <h2>Competition Details</h2>
           <div class="info-grid">
             <div class="info-item">
               <span class="label">Title:</span>
-              <span class="value">{{title}}</span>
+              <span class="value">{{competition_info.title}}</span>
             </div>
             <div class="info-item">
               <span class="label">Language:</span>
-              <span class="value"><span class="language-badge">{{language}}</span></span>
+              <span class="value"><span class="language-badge">{{competition_info.lang}}</span></span>
             </div>
             <div class="info-item">
               <span class="label">Total Submissions:</span>
-              <span class="value">{{total_subs}}</span>
+              <span class="value">{{competition_info.submissions}}</span>
             </div>
             <div class="info-item">
               <span class="label">Date:</span>
-              <span class="value">{{last_date}}4</span>
+              <span class="value">{{competition_info.date}}</span>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <div class="results-table">
           <div class="table-header">
@@ -74,12 +74,12 @@
             <div class="header-cell">Submitted By</div>
             <div class="header-cell">ViewCode</div>
           </div>
-          {% for dat in resmod%}
+          {% for result in results_list%}
           <div class="table-row">
-            <div class="cell">{{dat.position}}</div>
-            <div class="cell">{{dat.username}}</div>
+            <div class="cell">{{result.position}}</div>
+            <div class="cell">{{result.username}}</div>
             <div class="cell">
-                <a href="{% url 'code' %}?id={{dat.sub_id}}" style="text-decoration: none;">
+                <a href="{% url 'code' %}?id={{result.sub_id}}" style="text-decoration: none;">
               <button class="btn-view">
                 View
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

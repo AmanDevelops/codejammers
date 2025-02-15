@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Jammers - Coming Soon</title>
+    <title>Code Jammers - Contact Us</title>
+  <link rel="stylesheet" href="{% static 'soon.css'%}">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 16 4-4-4-4"></path>
+            <path d="m6 8-4 4 4 4"></path>
+            <path d="m14.5 4-5 16"></path>
+          </svg>
+          <span>Code Jammers</span>
+        </div>
+        
+        <div class="nav-links">
+          <a href="index.html">Dashboard</a>
+          <a href="#">About Us</a>
+          <a href="#" class="active">Features</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        
+        <div class="user-menu">
+          <span class="greeting">Hello, Aman</span>
+          <a href="#" class="logout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Logout
+          </a>
+        </div>
+      </div>
+    </nav>
+  
+    <main class="main-content">
+      <div class="container">
+        <div class="coming-soon-card">
+          <div class="coming-soon-header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="coming-soon-icon">
+              <path d="M12 2v4"></path>
+              <path d="M12 18v4"></path>
+              <path d="M4.93 4.93l2.83 2.83"></path>
+              <path d="M16.24 16.24l2.83 2.83"></path>
+              <path d="M2 12h4"></path>
+              <path d="M18 12h4"></path>
+              <path d="M4.93 19.07l2.83-2.83"></path>
+              <path d="M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            <h1>Coming Soon</h1>
+            <p>
+                This feature is not available yet, but we’d love your feedback and ideas!
+            </p>
+            <p>
+                You can create a request on GitHub Issues and let us know what you'd like to see.
+            </p>
+          </div>
+  
+          <a href="https://github.com/AmanDevelops/codejammers/issues" class="issues-link" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>Track Progress on GitHub Issues</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </body>
+  </html>

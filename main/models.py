@@ -25,9 +25,3 @@ class resultmodel(models.Model):
     username = models.TextField()
     comp_id = models.IntegerField()
     sub_id = models.IntegerField()
-
-
-class contact(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    message = models.TextField()

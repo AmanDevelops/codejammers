@@ -55,22 +55,22 @@
           <div class="header-cell">Actions</div>
         </div>
 
-        {% for comp in comps%}
+        {% for competition in competitions_list%}
         <div class="table-row">
-          <div class="cell">{{comp.id}}</div>
+          <div class="cell">{{competition.id}}</div>
           <div class="cell">
-            <a href="#" class="competition-title">{{comp.title}}</a>
+            <a href="#" class="competition-title">{{competition.title}}</a>
           </div>
           <div class="cell">
-            <span class="language-badge">{{comp.lang}}</span>
+            <span class="language-badge">{{competition.lang}}</span>
           </div>
-          <div class="cell">{{comp.submissions}}</div>
-          <div class="cell">{{comp.date}}</div>
+          <div class="cell">{{competition.submissions}}</div>
+          <div class="cell">{{competition.date}}</div>
 
           <div class="cell">
 
-            {% if comp.result %}
-            <a href="{% url 'result'%}?id={{comp.id}}" style="text-decoration: none;">
+            {% if competition.result %}
+            <a href="{% url 'result'%}?id={{competition.id}}" style="text-decoration: none;">
             <button class="btn-view">
                 Result
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +81,7 @@
             </button>
         </a>
             {% else%}
-            <a href="{% url 'view'%}?id={{comp.id}}" style="text-decoration: none;">
+            <a href="{% url 'view'%}?id={{competition.id}}" style="text-decoration: none;">
             
             <button class="btn-view">
                 View
