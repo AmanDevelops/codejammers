@@ -21,6 +21,24 @@
     max-width: 28rem;
   }
   
+  /* Notification banner */
+.notification {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  
+  .notification svg {
+    flex-shrink: 0;
+  }
+  
   /* Login card styles */
   .login-card {
     background-color: white;
