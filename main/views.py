@@ -175,22 +175,52 @@ def dashboard(request):
 
 
 def view(request):
-    if request.GET.get("id") is not None:
-        idg = request.GET["id"]
-        subs = submissions.objects.filter(pgid=idg)
-        comp = get_object_or_404(competitions, id=idg)
+    """
+    Handle the view functionality for competitions.
 
-        submitted = submissions.objects.filter(
-            submitted_by=request.user.username, pgid=idg
-        ).exists()
+    This function retrieves the requested competition id from the query parameters. If the
+    id is present, it filters submissions for the current user and the specified competition
+    id, retrieves the competition object, and checks if the user has submitted anything for
+    the competition. It then renders the view page with the competition and submission details.
+    If the id is not present, the user is redirected to the dashboard.
 
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A rendered view page with competition and submission details if the id is present,
+                      or a redirect to the dashboard if the id is not present.
+
+    Raises:
+        Http404: If the competition with the specified id does not exist.
+    """
+
+    # Retrieve the requested competition id from query parameters
+    requested_id = request.GET.get("id")
+    if requested_id is not None:
+        # Filter submissions for the current user and specified competition id
+        submissions_list = submissions.objects.filter(
+            pgid=requested_id, submitted_by=request.user.username
+        )
+        # Retrieve the competition object
+        competitions_list = get_object_or_404(competitions, id=requested_id)
+
+        # Check if the user has submitted anything for the competition
+        isSubmitted = True if len(submissions_list) > 0 else False
+
+        # Render the view page with competition and submission details
         return render(
             request,
             "main/view.html",
-            {"comps": comp, "id": idg, "sub": subs, "submitted": submitted, "pos": 0},
+            {
+                "competitions_list": competitions_list,
+                "id": requested_id,
+                "submissions_list": submissions_list,
+                "isSubmitted": isSubmitted,
+            },
         )
-    else:
-        return redirect("/login")
+    # Redirect to the dashboard if the id is not present
+    return redirect("dash")
 
 
 def submit(request):
