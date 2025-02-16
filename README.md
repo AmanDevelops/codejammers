@@ -16,7 +16,7 @@ Welcome to **CodeJammers**, a web application designed to streamline coding comp
 
 ## 🛠️ Tech Stack  
 
-🔹 **Frontend**: HTML, CSS, JavaScript  
+🔹 **Frontend**: HTML, CSS  
 🔹 **Backend**: Python, Django  
 🔹 **Database**: SQLite3  
 🔹 **Version Control**: Git  
