@@ -1,11 +1,11 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Code Jammers - Dashboard</title>
-  <link rel="stylesheet" href="{% static 'dashboard.css'%}">
+  <head>
+    <title>{% block title%}{% endblock %} - Code Jammers</title>
+  </head>
 </head>
 <body>
   <nav class="navbar">
@@ -19,10 +19,10 @@
       </div>
       
       <div class="nav-links">
-        <a href="{% url 'dash'%}" class="active">Dashboard</a>
-        <a href="{% url 'soon'%}">About Us</a>
-        <a href="{% url 'soon'%}">Features</a>
-        <a href="{% url 'contact'%}">Contact Us</a>
+        <a href="{% url 'dash'%}" {% block dashboard_active %}{% endblock %}>Dashboard</a>
+        <a href="{% url 'soon'%}" {% block about_us_active %}{% endblock %}>About Us</a>
+        <a href="{% url 'soon'%}" {% block features_active %}{% endblock %}>Features</a>
+        <a href="{% url 'contact'%}" {% block contact_us_active %}{% endblock %}>Contact Us</a>
       </div>
       
       <div class="user-menu">

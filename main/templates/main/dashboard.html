@@ -1,6 +1,15 @@
 {% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block dashboard_active %}class="active"{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block contents%}
+
+<head>
+  <link rel="stylesheet" href="{% static 'dashboard.css'%}">
+</head>
 
   <main class="main-content">
     <div class="container">
