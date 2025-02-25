@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 from .models import competitions, resultmodel, submissions
@@ -382,3 +383,29 @@ def contact(request):
 
 def coming_soon(request):
     return render(request, "main/coming-soon.html")
+
+@login_required(login_url="index-load")
+def my_profile(request):
+
+    if request.method == "POST":
+        if request.POST.get("buttonClicked") == "Update Password":
+            if request.POST.get("newPassword") == "":
+                messages.warning(request, "Please Enter a Password")
+            elif request.POST.get("newPassword") != request.POST.get("confirmPassword"):
+                messages.warning(request, "Password Not Matched")
+            else:
+                u = User.objects.get(username__exact=request.user.username)
+                u.set_password(request.POST.get("newPassword"))  
+                u.save()
+                messages.success(request, "Password Changed Succesfully")
+        elif request.POST.get("buttonClicked") == "Update Profile":
+            u = User.objects.get(username__exact=request.user.username)
+            u.first_name = request.POST.get("firstName")
+            u.last_name = request.POST.get("lastName")
+            u.email = request.POST.get("email")
+            u.save()
+            messages.success(request, "Profile Updated")
+
+    request.user = User.objects.get(username__exact=request.user.username)
+
+    return render(request, "main/my-profile.html", {"user": request.user})

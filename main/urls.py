@@ -14,6 +14,6 @@ urlpatterns = [
     path("result", views.result, name="result"),
     path("contact", views.contact, name="contact"),
     path("coming-soon", views.coming_soon, name="soon"),
-    path("profile", views.coming_soon, name="profile"),
+    path("profile", views.my_profile, name="profile"),
 
 ]
