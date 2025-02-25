@@ -6,6 +6,92 @@
   <head>
     <title>{% block title%}{% endblock %} - Code Jammers</title>
   </head>
+  <style>
+    .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #f3f4f6;
+  color: #4f46e5;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropbtn:hover {
+  background-color: #f3f4f6;
+  border-color: #646cff;
+  color: #4f46e5;
+}
+
+.arrow {
+  border: solid #4f46e5;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  margin-top: -3px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.dropbtn:hover .arrow {
+  border-color: #4f46e5;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f3f4f6;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1;
+  border: 1px solid #4f46e5;
+}
+
+.dropdown.active .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: #4f46e5;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown-content a:hover {
+  background-color: #f3f4f6;
+  color: #8288ff;
+}
+
+.dropdown-content a:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.dropdown-content a:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #333;
+  margin: 0;
+}
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -25,17 +111,23 @@
         <a href="{% url 'contact'%}" {% block contact_us_active %}{% endblock %}>Contact Us</a>
       </div>
       
-      <div class="user-menu">
-        <span class="greeting">Hello, {{user.first_name}}</span>
-        <a href="{% url 'logout'%}" class="logout">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-          </svg>
-          Logout
-        </a>
+      <div class="nav-right">
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+          <button class="dropbtn" onclick="this.parentElement.classList.toggle('active')">My Account 
+            <i class="arrow down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="{% url 'profile'%}"><i class="profile-icon"></i>👤 Profile</a>
+            <div class="divider"></div>
+            <a href="{% url 'logout'%}" class="logout"><i class="logout-icon"></i>🚪 Logout</a>
+          </div>
+        </div>
+        {% else %}
+        {% endif%}
+
       </div>
+
     </div>
   </nav>
 
@@ -44,4 +136,17 @@
     {% endblock %}
 
   </body>
+
+
+<script>
+  document.addEventListener('click', (e) => {
+  const dropdowns = document.querySelectorAll('.dropdown')
+  dropdowns.forEach(dropdown => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('active')
+    }
+  })
+})
+</script>
+
   </html>

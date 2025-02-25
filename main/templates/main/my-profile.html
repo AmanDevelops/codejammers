@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block dashboard_active %}class="active"{% endblock %}
+{% block title %}Dashboard{% endblock %}
+
+{% block contents%}
+
+<head>
+  <link rel="stylesheet" href="{% static 'myprofile.css'%}">
+</head>
+    <div class="container">
+        
+        <div class="profile-card">
+            <div class="profile-header">
+            {% for message in messages %}
+
+                  <div class="{% if message.tags %}{{ message.tags }}{% endif %}-message">
+                    {% if message.tags == 'warning'%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                      <line x1="12" y1="9" x2="12" y2="13"/>
+                      <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9 12l2 2 4-4"/>
+                      </svg>
+                    {% endif %}
+                    <span>{{message}}</span>
+                  </div>
+            {% endfor %}
+                  
+                <h1>Profile Settings</h1>
+                <p class="subtitle">Manage your personal information and account settings</p>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-section">
+                    <form class="profile-form" id="profileForm" action="" method="POST">
+                        {%csrf_token%}
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" value="{{user.first_name}}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" value="{{user.last_name}}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="{{user.email}}" required>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary" name="buttonClicked" value="Update Profile">
+                    </form>
+                </div>
+
+                <div class="profile-section">
+                    <form class="profile-form" id="passwordForm" action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="password">New Password</label>
+                            <input type="password" id="password" name="newPassword" placeholder="Enter new password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" required>
+                        </div>
+
+                        <input type="submit" class="btn btn-secondary" name="buttonClicked" value="Update Password">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('click', (e) => {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+    </script>
+{% endblock %}
