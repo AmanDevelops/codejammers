@@ -110,13 +110,11 @@ h1 {
 .language-badge {
   display: inline-block;
   padding: var(--spacing-xs) var(--spacing-md);
-  background-color: var(--color-surface);
+  background-color: #10b9811a;
   color: var(--color-primary);
   border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
   font-weight: 500;
-  border-style: solid;
-  border-color: var(--color-primary-dark);
 }
 
 .btn-view {
