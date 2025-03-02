@@ -1,77 +1,102 @@
-{% extends 'main/base.html' %}
+{% extends 'main/base.html' %} 
 {% load static %}
 
-
-{% block dashboard_active %}class="active"{% endblock %}
-{% block title %}Dashboard{% endblock %}
+{% block dashboard_active %}class="active"{% endblock %} 
+{% block title %}Dashboard{% endblock %} 
 
 {% block contents%}
 
 <head>
-  <link rel="stylesheet" href="{% static 'dashboard.css'%}">
+  <link rel="stylesheet" href="{% static 'dashboard.css'%}" />
 </head>
 
-  <main class="main-content">
-    <div class="container">
-      <header class="page-header">
-        <h1>Hello {{user.first_name}}, here are some coding competitions for you.</h1>
-      </header>
+<main class="main-content">
+  <div class="container">
+    <header class="page-header">
+      <h1>
+        Hello {{user.first_name}}, here are some coding competitions for you.
+      </h1>
+    </header>
 
-      <div class="competitions-table">
-        <div class="table-header">
-          <div class="header-cell">ID</div>
-          <div class="header-cell">Title</div>
-          <div class="header-cell">Language</div>
-          <div class="header-cell">Submissions</div>
-          <div class="header-cell">Last Date</div>
-          <div class="header-cell">Actions</div>
-        </div>
-
-        {% for competition in competitions_list%}
-        <div class="table-row">
-          <div class="cell">{{competition.id}}</div>
-          <div class="cell">
-            <a href="#" class="competition-title">{{competition.title}}</a>
-          </div>
-          <div class="cell">
-            <span class="language-badge">{{competition.lang}}</span>
-          </div>
-          <div class="cell">{{competition.submissions}}</div>
-          <div class="cell">{{competition.date}}</div>
-
-          <div class="cell">
-
-            {% if competition.result %}
-            <a href="{% url 'result'%}?id={{competition.id}}" style="text-decoration: none;">
-            <button class="btn-view">
-                Result
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8 2h8l1 4h4v2a5 5 0 0 1-5 5h-1a5 5 0 0 1-10 0H5a5 5 0 0 1-5-5V6h4l1-4z"></path>
-                    <path d="M12 17v5"></path>
-                    <path d="M8 22h8"></path>
-                </svg>
-            </button>
-        </a>
-            {% else%}
-            <a href="{% url 'view'%}?id={{competition.id}}" style="text-decoration: none;">
-            
-            <button class="btn-view">
-                View
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-              </button>
-        </a>
-
-            {% endif %}
-          </div>
-        </div>
-{% endfor %}
-
+    <div class="competitions-table">
+      <div class="table-header">
+        <div class="header-cell">ID</div>
+        <div class="header-cell">Title</div>
+        <div class="header-cell">Language</div>
+        <div class="header-cell">Submissions</div>
+        <div class="header-cell">Last Date</div>
+        <div class="header-cell">Actions</div>
       </div>
-    </div>
-  </main>
 
-  
+      {% for competition in competitions_list%}
+      <div class="table-row">
+        <div class="cell">{{competition.id}}</div>
+        <div class="cell">
+          <a href="#" class="competition-title">{{competition.title}}</a>
+        </div>
+        <div class="cell">
+          <span class="language-badge">{{competition.lang}}</span>
+        </div>
+        <div class="cell">{{competition.submissions}}</div>
+        <div class="cell">{{competition.date}}</div>
+
+        <div class="cell">
+          {% if competition.result %}
+          <a
+            href="{% url 'result'%}?id={{competition.id}}"
+            style="text-decoration: none"
+          >
+            <button class="btn-view">
+              Result
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M8 2h8l1 4h4v2a5 5 0 0 1-5 5h-1a5 5 0 0 1-10 0H5a5 5 0 0 1-5-5V6h4l1-4z"
+                ></path>
+                <path d="M12 17v5"></path>
+                <path d="M8 22h8"></path>
+              </svg>
+            </button>
+          </a>
+          {% else%}
+          <a
+            href="{% url 'view'%}?id={{competition.id}}"
+            style="text-decoration: none"
+          >
+            <button class="btn-view">
+              View
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </a>
+
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+
 {% endblock %}
