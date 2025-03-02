@@ -199,7 +199,7 @@ input::placeholder {
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: #fff7ed;
+  background-color: var(--color-surface);
   border: 1px solid #fdba74;
   border-radius: var(--radius-sm);
   color: #c2410c;
@@ -222,7 +222,7 @@ input::placeholder {
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: #edffed;
+  background-color: var(--color-surface);
   border: 1px solid #00b159;
   border-radius: var(--radius-sm);
   color: #01b57c;
