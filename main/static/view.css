@@ -1,17 +1,3 @@
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  min-height: 100vh;
-}
-
 /* Navbar styles */
 .navbar {
   background-color: var(--color-surface);
