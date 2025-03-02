@@ -1,4 +1,28 @@
 /* Reset and base styles */
+:root {
+  --color-black: #000;
+  --color-white: #fff;
+  --color-white-90: rgba(255, 255, 255, 0.9);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+  --color-green: #22c55e;
+  --color-green-dark: #16a34a;
+  --color-purple: #4f46e5;
+  --shadow-white: rgba(255, 255, 255, 0.3);
+  --shadow-green: rgba(34, 197, 94, 0.3);
+  --shadow-black: rgba(0, 0, 0, 0.25);
+  --shadow-black-hover: rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s ease;
+  --radius-full: 9999px;
+  --radius-md: 0.5rem;
+  --gap-sm: 0.5rem;
+  --gap-md: 1rem;
+  --gap-lg: 2rem;
+  --font-size-sm: 1.25rem;
+  --font-size-md: 1.5rem;
+  --font-size-lg: 2.25rem;
+  --font-size-xl: 3.75rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +31,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #4f46e5;
-  color: white;
+  background-color: var(--color-black);
+  color: var(--color-white);
   overflow: hidden;
 }
 
@@ -20,7 +44,7 @@ body {
 
 /* Navigation styles */
 nav {
-  padding: 1rem 1.5rem;
+  padding: var(--gap-md) 1.5rem;
   position: relative;
   z-index: 10;
 }
@@ -36,8 +60,8 @@ nav {
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: transform 0.3s ease;
+  gap: var(--gap-sm);
+  transition: transform var(--transition);
   cursor: pointer;
 }
 
@@ -46,7 +70,7 @@ nav {
 }
 
 .logo svg {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition);
 }
 
 .logo:hover svg {
@@ -54,7 +78,7 @@ nav {
 }
 
 .logo span {
-  font-size: 1.25rem;
+  font-size: var(--font-size-sm);
   font-weight: bold;
 }
 
@@ -63,10 +87,10 @@ nav {
 }
 
 .nav-links a {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-white-90);
   text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
+  transition: var(--transition);
+  padding: var(--gap-sm) var(--gap-md);
   position: relative;
   cursor: pointer;
 }
@@ -78,8 +102,8 @@ nav {
   height: 2px;
   bottom: 0;
   left: 50%;
-  background-color: white;
-  transition: all 0.3s ease;
+  background-color: var(--color-white);
+  transition: var(--transition);
   transform: translateX(-50%);
 }
 
@@ -90,24 +114,28 @@ nav {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: white;
+  color: var(--color-white);
 }
 
 .nav-buttons {
   display: none;
 }
 
-.btn-login {
-  color: white;
-  background: transparent;
+.btn-login,
+.btn-signup {
+  color: var(--color-white);
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
+  padding: var(--gap-sm) var(--gap-md);
+  border-radius: var(--radius-full);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition);
   position: relative;
   overflow: hidden;
   text-decoration: none;
+}
+
+.btn-login {
+  background: transparent;
 }
 
 .btn-login::before {
@@ -117,10 +145,10 @@ nav {
   left: 50%;
   width: 0;
   height: 0;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-white-10);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease;
+  transition: width var(--transition), height var(--transition);
 }
 
 .btn-login:hover::before {
@@ -128,28 +156,14 @@ nav {
   height: 300%;
 }
 
-.btn-login span {
-  position: relative;
-  z-index: 1;
-}
-
 .btn-signup {
-  color: white;
-  background-color: #22c55e;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
+  background-color: var(--color-green);
 }
 
 .btn-signup:hover {
-  background-color: #16a34a;
+  background-color: var(--color-green-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-green);
 }
 
 .btn-signup:active {
@@ -159,9 +173,9 @@ nav {
 .menu-button {
   background: none;
   border: none;
-  color: white;
+  color: var(--color-white);
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition);
 }
 
 .menu-button:hover {
@@ -182,7 +196,7 @@ main {
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: var(--gap-lg);
 }
 
 .hero-text {
@@ -190,7 +204,7 @@ main {
 }
 
 h1 {
-  font-size: 2.25rem;
+  font-size: var(--font-size-lg);
   font-weight: bold;
   margin-bottom: 1.5rem;
   line-height: 1.2;
@@ -198,8 +212,8 @@ h1 {
 }
 
 .hero-text p {
-  font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--font-size-sm);
+  color: var(--color-white-90);
   margin-bottom: 2rem;
   max-width: 32rem;
   user-select: none;
@@ -207,28 +221,31 @@ h1 {
 
 .hero-buttons {
   display: flex;
-  gap: 1rem;
+  gap: var(--gap-md);
   margin-bottom: 3rem;
   flex-wrap: wrap;
 }
 
-.btn-primary {
-  background-color: white;
-  color: #4f46e5;
-  border: none;
+.btn-primary,
+.btn-secondary {
   padding: 0.75rem 2rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-full);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition);
   position: relative;
   overflow: hidden;
   text-decoration: none;
 }
 
+.btn-primary {
+  background-color: var(--color-white);
+  color: var(--color-purple);
+}
+
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-white);
 }
 
 .btn-primary:active {
@@ -237,22 +254,14 @@ h1 {
 
 .btn-secondary {
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-white-10);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-white);
 }
 
 .btn-secondary:active {
@@ -261,26 +270,26 @@ h1 {
 
 .features {
   display: flex;
-  gap: 2rem;
+  gap: var(--gap-lg);
 }
 
 .feature {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  gap: var(--gap-sm);
+  transition: var(--transition);
+  padding: var(--gap-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
 }
 
 .feature:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-white-10);
   transform: translateY(-2px);
 }
 
 .feature svg {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition);
 }
 
 .feature:hover svg {
@@ -290,7 +299,7 @@ h1 {
 .hero-image {
   display: none;
   flex: 1;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition);
   cursor: pointer;
 }
 
@@ -303,15 +312,15 @@ h1 {
   max-width: 32rem;
   height: auto;
   margin: 0 auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
+  border-radius: var(--radius-md);
+  box-shadow: 0 25px 50px -12px var(--shadow-black);
+  transition: var(--transition);
   user-select: none;
   -webkit-user-drag: none;
 }
 
 .hero-image:hover img {
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px -12px var(--shadow-black-hover);
 }
 
 .wave {
@@ -328,13 +337,13 @@ h1 {
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: var(--gap-lg);
   }
 
   .nav-buttons {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--gap-md);
   }
 
   .menu-button {
@@ -342,7 +351,7 @@ h1 {
   }
 
   h1 {
-    font-size: 3.75rem;
+    font-size: var(--font-size-xl);
   }
 
   .hero-image {
