@@ -1,120 +1,251 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <head>
     <title>{% block title%}{% endblock %} - Code Jammers</title>
   </head>
   <style>
+    /* CSS Variables */
+    :root {
+      /* Colors */
+      --color-primary: #10b981;
+      --color-primary-dark: #059669;
+      --color-primary-light: #d1fae5;
+      --color-background: #000000;
+      --color-surface: #1d1f20;
+      --color-surface-light: #313131;
+      --color-text: #f9fafb;
+      --color-text-secondary: #9ca3af;
+      --color-border: #4b5563;
+      --color-hover: rgba(255, 255, 255, 0.1);
+
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 0.75rem;
+      --spacing-base: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+
+      /* Typography */
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.5rem;
+      --font-size-xl: 1.875rem;
+
+      /* Border radius */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+      /* Transitions */
+      --transition-default: all 0.3s ease;
+    }
+
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      padding: var(--spacing-base);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .logo svg {
+      transition: var(--transition-default);
+    }
+
+    .logo:hover svg {
+      transform: rotate(-5deg);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--spacing-xl);
+    }
+
+    .nav-links a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      padding: var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      transition: var(--transition-default);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--color-text);
+      background-color: var(--color-hover);
+    }
+
+    /* Dropdown styles */
     .dropdown {
-  position: relative;
-  display: inline-block;
-}
+      position: relative;
+      display: inline-block;
+    }
 
-.dropbtn {
-  background-color: #f3f4f6;
-  color: #4f46e5;
-  padding: 10px 20px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1em;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-}
+    .dropbtn {
+      background-color: var(--color-surface-light);
+      color: var(--color-primary);
+      padding: 10px 20px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      transition: var(--transition-default);
+    }
 
-.dropbtn:hover {
-  background-color: #f3f4f6;
-  border-color: #646cff;
-  color: #4f46e5;
-}
+    .dropbtn:hover {
+      background-color: var(--color-surface);
+      border-color: var(--color-primary);
+      color: var(--color-primary-light);
+    }
 
-.arrow {
-  border: solid #4f46e5;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  margin-top: -3px;
-  transition: border-color 0.2s ease-in-out;
-}
+    .arrow {
+      border: solid var(--color-primary);
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      margin-top: -3px;
+      transition: border-color 0.2s ease-in-out;
+    }
 
-.dropbtn:hover .arrow {
-  border-color: #4f46e5;
-}
+    .dropbtn:hover .arrow {
+      border-color: var(--color-primary-light);
+    }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: #f3f4f6;
-  min-width: 200px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  border-radius: 8px;
-  z-index: 1;
-  border: 1px solid #4f46e5;
-}
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: var(--color-surface);
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius-md);
+      z-index: 1;
+      border: 1px solid var(--color-primary);
+    }
 
-.dropdown.active .dropdown-content {
-  display: block;
-}
+    .dropdown.active .dropdown-content {
+      display: block;
+    }
 
-.dropdown-content a {
-  color: #4f46e5;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease-in-out;
-}
+    .dropdown-content a {
+      color: var(--color-primary);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition-default);
+    }
 
-.dropdown-content a:hover {
-  background-color: #f3f4f6;
-  color: #8288ff;
-}
+    .dropdown-content a:hover {
+      background-color: var(--color-surface-light);
+      color: var(--color-primary-light);
+    }
 
-.dropdown-content a:first-child {
-  border-radius: 8px 8px 0 0;
-}
+    .dropdown-content a:first-child {
+      border-radius: 8px 8px 0 0;
+    }
 
-.dropdown-content a:last-child {
-  border-radius: 0 0 8px 8px;
-}
+    .dropdown-content a:last-child {
+      border-radius: 0 0 8px 8px;
+    }
 
-.divider {
-  height: 1px;
-  background-color: #333;
-  margin: 0;
-}
+    .divider {
+      height: 1px;
+      background-color: var(--color-border);
+      margin: 0;
+    }
+
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .user-menu {
+        gap: var(--spacing-base);
+      }
+    }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="nav-content">
-      <div class="logo" onclick="window.location.href = `{%url 'index-load'%}`;" style="cursor:pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="logo" onclick="window.location.href = `{%url 'index-load'%}`;" style="cursor: pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="16 18 22 12 16 6"></polyline>
           <polyline points="8 6 2 12 8 18"></polyline>
         </svg>
         <span>Code Jammers</span>
       </div>
-      
+
       <div class="nav-links">
         <a href="{% url 'dash'%}" {% block dashboard_active %}{% endblock %}>Dashboard</a>
         <a href="{% url 'soon'%}" {% block about_us_active %}{% endblock %}>About Us</a>
         <a href="{% url 'soon'%}" {% block features_active %}{% endblock %}>Features</a>
         <a href="{% url 'contact'%}" {% block contact_us_active %}{% endblock %}>Contact Us</a>
       </div>
-      
+
       <div class="nav-right">
         {% if user.is_authenticated %}
         <div class="dropdown">
-          <button class="dropbtn" onclick="this.parentElement.classList.toggle('active')">My Account 
+          <button class="dropbtn" onclick="this.parentElement.classList.toggle('active')">
+            My Account
             <i class="arrow down"></i>
           </button>
           <div class="dropdown-content">
@@ -123,30 +254,23 @@
             <a href="{% url 'logout'%}" class="logout"><i class="logout-icon"></i>🚪 Logout</a>
           </div>
         </div>
-        {% else %}
-        {% endif%}
-
+        {% else %} {% endif%}
       </div>
-
     </div>
   </nav>
 
-
-  {% block contents %}
-    {% endblock %}
-
-  </body>
-
+  {% block contents %} {% endblock %}
+</body>
 
 <script>
-  document.addEventListener('click', (e) => {
-  const dropdowns = document.querySelectorAll('.dropdown')
-  dropdowns.forEach(dropdown => {
-    if (!dropdown.contains(e.target)) {
-      dropdown.classList.remove('active')
-    }
-  })
-})
+  document.addEventListener("click", (e) => {
+    const dropdowns = document.querySelectorAll(".dropdown");
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("active");
+      }
+    });
+  });
 </script>
 
-  </html>
+</html>
