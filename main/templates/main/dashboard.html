@@ -32,7 +32,7 @@
       <div class="table-row">
         <div class="cell">{{competition.id}}</div>
         <div class="cell">
-          <a href="#" class="competition-title">{{competition.title}}</a>
+          <a href="{% url 'result'%}?id={{competition.id}}" class="competition-title">{{competition.title}}</a>
         </div>
         <div class="cell">
           <span class="language-badge">{{competition.lang}}</span>
